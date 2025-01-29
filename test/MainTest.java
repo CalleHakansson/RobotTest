@@ -14,19 +14,33 @@ public class MainTest {
         assertEquals(3, robot.getXPos());
     }
 
-    // First place command is performed, the second place command is ignored
+    // First place command is performed, the second place command picks up and places the robot again
     @Test
     public void testTwoPlaceCommands() {
         Robot robot = Main.takeCommand(null, "PLACE 3 4,EAST");
         assertNotNull(robot);
         assertEquals(Direction.EAST, robot.getDirection());
-        assertEquals(4, robot.getYPos());
         assertEquals(3, robot.getXPos());
+        assertEquals(4, robot.getYPos());
         robot = Main.takeCommand(robot, "PLACE 1,2,NORTH");
         assertNotNull(robot);
+        assertEquals(Direction.NORTH, robot.getDirection());
+        assertEquals(1, robot.getXPos());
+        assertEquals(2, robot.getYPos());
+    }
+
+    @Test
+    public void testValidAndThenInvalidPlaceCommands() {
+        Robot robot = Main.takeCommand(null, "PLACE 3 4,EAST");
+        assertNotNull(robot);
         assertEquals(Direction.EAST, robot.getDirection());
-        assertEquals(4, robot.getYPos());
         assertEquals(3, robot.getXPos());
+        assertEquals(4, robot.getYPos());
+        robot = Main.takeCommand(robot, "PLACE 5,2,NORTH");
+        assertNotNull(robot);
+        assertEquals(Direction.EAST, robot.getDirection());
+        assertEquals(3, robot.getXPos());
+        assertEquals(4, robot.getYPos());
     }
 
     // Doesn't place a robot if the place command is followed by faulty input

@@ -55,8 +55,7 @@ public class RobotService {
     // returns new Robot
     protected static Robot placeRobot(int xPos, int yPos, Direction direction) {
         if (!ValidatorUtil.validatePlacement(xPos, yPos)) {
-            System.out.println("Invalid placement, place the robot on the table!");
-            return null;
+            throw new IllegalArgumentException("Invalid placement, place the robot on the table!");
         }
         return new Robot(xPos, yPos, direction);
     }

@@ -24,14 +24,11 @@ public class Main {
         String[] commandParts = command.split("[, ]+");
         try {
             if (commandParts[0].equals("PLACE")) {
-                if (robot != null) {
-                    return robot;
-                }
                 return RobotService.placeRobot(Integer.parseInt(commandParts[1]), Integer.parseInt(commandParts[2]), Direction.valueOf(commandParts[3]));
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
-            return null;
+            return robot;
         }
         switch (command) {
             case "MOVE" -> RobotService.moveRobot(robot);

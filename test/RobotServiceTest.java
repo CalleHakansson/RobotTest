@@ -1,4 +1,5 @@
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 public class RobotServiceTest {
@@ -108,14 +109,16 @@ public class RobotServiceTest {
     // Returns a robot if the placement is valid
     @Test
     public void testPlaceRobotCorrectly() {
-        Robot robot = RobotService.placeRobot(2,2,Direction.NORTH);
+        Robot robot = RobotService.placeRobot(2, 2, Direction.NORTH);
         assertNotNull(robot);
     }
 
     // Returns null if the placement is invalid
     @Test
     public void testPlaceRobotIncorrectly() {
-        Robot robot = RobotService.placeRobot(5,2,Direction.SOUTH);
-        assertNull(robot);
+        assertThrows(IllegalArgumentException.class, () -> {
+                    RobotService.placeRobot(5, 2, Direction.SOUTH);
+                }
+        );
     }
 }
